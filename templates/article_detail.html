@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="article-entry">
+        <div class="card">
+            <div class="card-header">
+                <span class="font-weight-bold">{{ object.title }}</span>&middot;
+                <span class="text-muted">{{ object.author }} | {{ object.date }}</span>
+            </div>
+            <div class="card-body">
+                <p>{{ object.body }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer" style="background-color: #f0f0f0;">
+        <h4>Comments</h4>
+        {% for comment in article.comment_set.all %}
+        <p>
+            <span class="font-weight-bold">{{ comment.author }} &middot;</span> {{ comment }}
+        </p>
+        {% endfor %}
+    </div>
+
+    <div class="card-body">
+        <div class="card" style="background-color: #f0f0f0; color: black; padding-top: 1rem; padding-bottom: 1rem; padding-left: 1.5rem; padding-right: 1.5rem;">
+            <h4 class="mb-3">Add a comment</h4>
+            <form actions="" method="post" class="comment-form">{% csrf_token %}
+                {{ form|crispy }}
+                <button class="btn btn-primary" type="submit">Post Comment</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

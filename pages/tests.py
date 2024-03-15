@@ -1,7 +1,6 @@
 from django.test import TestCase, SimpleTestCase
 from django.urls import reverse
 
-# Create your tests here.
 
 class HomePageTests(SimpleTestCase):
     def test_url_exists_at_correct_location_homepageview(self):

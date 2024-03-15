@@ -44,8 +44,11 @@ INSTALLED_APPS = [
 
     # local
     'accounts.apps.AccountsConfig', # new
-    'pages.apps.PagesConfig'
+    'pages.apps.PagesConfig',
+    'articles.apps.ArticlesConfig', # new
 ]
+
+TIME_ZONE = 'EST'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -137,5 +140,15 @@ LOGOUT_REDIRECT_URL = 'home' # new
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5' # new
 CRISPY_TEMPLATE_PACK = 'bootstrap5' # new
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # new
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # new
 
+
+# SMTP
+
+DEFAULT_FROM_EMAIL = "nsjames@my.waketech.edu"
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = "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"
+
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

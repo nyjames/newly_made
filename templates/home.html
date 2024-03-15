@@ -1,14 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock title %}
+{% block title %}
+    Home
+{% endblock title %}
 
 {% block content %}
-{% if user.is_authenticated %}
-    Hi {{ user.username }}! You are {{ user.age }} years old.
-    <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">Log In</a> |
-<a href="{% url 'signup' %}">Sign Up</a> 
-{% endif %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card border-0 rounded-lg">
+                    <div class="card-body">
+                        {% if user.is_authenticated %}
+                            <h2 class="card-title mb-4">Welcome back, {{ user.username }}!</h2>
+                            <p class="card-text">You have successfully logged in.</p>
+                            <a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a>
+                        {% else %}
+                            <h2 class="card-title mb-4">Welcome to Our Website!</h2>
+                            <p class="card-text">Please log in or sign up to access the full features of our site.</p>
+                            <a href="{% url 'login' %}" class="btn btn-primary mr-2">Log In</a>
+                            <a href="{% url 'signup' %}" class="btn btn-success">Sign Up</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
