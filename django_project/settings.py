@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'crispy_bootstrap5', # new
 
     # local
-    'accounts.apps.AccountsConfig', # new
+    'accounts.apps.AccountsConfig', 
     'pages.apps.PagesConfig',
-    'articles.apps.ArticlesConfig', # new
+    'articles.apps.ArticlesConfig', 
 ]
 
 TIME_ZONE = 'EST'
