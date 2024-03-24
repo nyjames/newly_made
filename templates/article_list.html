@@ -40,7 +40,7 @@
 
     .comment {
         font-size: 14px;
-        color: #777;
+        color: black;
         padding: 5px;
     }
 
@@ -70,7 +70,7 @@
                 <div class="card-footer">
                     <ul class="comments-list">
                         {% for comment in article.comment_set.all %}
-                        <li class="comment">{{ comment.author }}: {{ comment }}</li>
+                        <li class="comment"> <strong style="color: black">{{ comment.author }}</strong>: {{ comment }}</li>
                         {% endfor %}
                     </ul>
                     <a href="{% url 'article_detail' article.pk %}" class="btn btn-dark btn-sm">Add comment</a>

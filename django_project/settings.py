@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from environs import Env
+
+env = Env() # new
+env.read_env() # new
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t&#!8a1b9w2m8ttc(37j*1mueaug!^4t(2j*)k5frihfk5=i(3'
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+
+DEBUG = env.bool("DEBUG", default=False)
+
+
+ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"] # new
 
 
 # Application definition
@@ -37,11 +44,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic', # new    
     'django.contrib.staticfiles',
 
     # third party
     'crispy_forms', # new
     'crispy_bootstrap5', # new
+
+
 
     # local
     'accounts.apps.AccountsConfig', 
@@ -57,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # new
 ]
 
 ROOT_URLCONF = 'django_project.urls'
@@ -84,10 +95,7 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.dj_db_url("DATABASE_URL")
 }
 
 
@@ -127,8 +135,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'news', 'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') # new
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" # new
 
 
 # Default primary key field type
