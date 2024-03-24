@@ -5,9 +5,9 @@
 <div class="container">
     <div class="article-entry">
         <div class="card">
-            <div class="card-header">
-                <span class="font-weight-bold">{{ object.title }}</span>&middot;
-                <span class="text-muted">{{ object.author }} | {{ object.date }}</span>
+            <div class="card-header" style="background-color: #000000;">
+                <span class="font-weight-bold" style="color: white;">{{ object.title }}</span>&middot;
+                <span class="font-weight-bold" style="color: white;">{{ object.author }} | {{ object.date }}</span>
             </div>
             <div class="card-body">
                 <p>{{ object.body }}</p>
@@ -18,8 +18,9 @@
     <div class="card-footer" style="background-color: #f0f0f0;">
         <h4>Comments</h4>
         {% for comment in article.comment_set.all %}
+        
         <p>
-            <span class="font-weight-bold">{{ comment.author }} &middot;</span> {{ comment }}
+            <span class="font-weight-bold">{{ comment.author }}: </span> {{ comment }}
         </p>
         {% endfor %}
     </div>
@@ -29,7 +30,7 @@
             <h4 class="mb-3">Add a comment</h4>
             <form actions="" method="post" class="comment-form">{% csrf_token %}
                 {{ form|crispy }}
-                <button class="btn btn-primary" type="submit">Post Comment</button>
+                <button class="btn btn-dark btn-sm" type="submit">Post Comment</button>
             </form>
         </div>
     </div>

@@ -1,31 +1,87 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
     Articles
 {% endblock title %}
 
 {% block content %}
+<style>
+    /* Custom CSS */
+    .card-header {
+        background-color: #f6f6f6;
+        padding: 4px;
+        border: 1px solid #000000;
+    }
+
+    .card-footer {
+        background-color: #F6F6F6;
+        padding: 10px;
+    }
+
+    .article-title {
+        font-size: 20px;
+        font-weight: 500;
+        color: black;
+        padding: 5px;
+        margin-left: 10px;
+    }
+
+    .article-info {
+        font-size: 14px;
+        color: #444444;
+        padding: 4px;
+    }
+
+    .article-body {
+        color: #333;
+    }
+
+    .comment {
+        font-size: 14px;
+        color: #777;
+        padding: 5px;
+    }
+
+    .btn {
+        margin-right: 10px;
+    }
+</style>
+
 <div class="container">
-    {% for article in article_list %}
-    <div class="card mb-3">
-        <div class="card-header">
-            <span class="font-weight-bold">{{ article.title }}</span>
-            <span class="text-muted">by {{ article.author }} | {{ article.date }}</span>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'world.png' %}" style="overflow: hidden" alt="Logo">
+            </div>
         </div>
-        <div class="card-body">
-            <p>{{ article.body }}</p>
-        </div>
-        <div class="card-footer">
-            {% for comment in article.comment_set.all %}
-            <p>
-                <span class="font-weight-bold">{{ comment.author }} &middot;</span>
-                {{ comment }}
-            </p>
+        
+        <div class="col-md-8">
+            {% for article in article_list %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="article-title">"{{ article.title }}"</h4>
+                    <p class="article-info">by {{ article.author }} [{{ article.date }}]</p>
+                </div>
+                <div class="card-body">
+                    <p class="article-body">{{ article.body }}</p>
+                </div>
+                <div class="card-footer">
+                    <ul class="comments-list">
+                        {% for comment in article.comment_set.all %}
+                        <li class="comment">{{ comment.author }}: {{ comment }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'article_detail' article.pk %}" class="btn btn-dark btn-sm">Add comment</a>
+                    {% if article.author == request.user %}
+                        <a href="{% url 'article_delete' article.pk %}" class="btn btn-dark btn-sm">Delete Article</a>
+                        <a href="{% url 'article_edit' article.pk %}" class="btn btn-dark btn-sm">Edit Article</a>
+                    {% endif %}
+                </div>
+            </div>
             {% endfor %}
-            <a href="{% url 'article_detail' article.pk %}" class="btn btn-primary">Add comment</a>
         </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock content %}

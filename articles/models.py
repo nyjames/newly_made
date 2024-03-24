@@ -8,7 +8,7 @@ class Article(models.Model):
 
     title = models.CharField(max_length=255)
     body = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -19,10 +19,13 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse("article_detail", kwargs={"pk": self.pk})
+    
+    class Meta:
+        ordering = ['-date']
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=140)
+    comment = models.CharField(max_length=255)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
