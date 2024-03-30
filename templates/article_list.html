@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    Articles
+    NewlyMade
 {% endblock title %}
 
 {% block content %}
@@ -73,7 +73,7 @@
                         <li class="comment"> <strong style="color: black">{{ comment.author }}</strong>: {{ comment }}</li>
                         {% endfor %}
                     </ul>
-                    <a href="{% url 'article_detail' article.pk %}" class="btn btn-dark btn-sm">Add comment</a>
+                    <a href="{% url 'article_detail' article.pk %}" class="btn btn-dark btn-sm">Add Comment</a>
                     {% if article.author == request.user %}
                         <a href="{% url 'article_delete' article.pk %}" class="btn btn-dark btn-sm">Delete Article</a>
                         <a href="{% url 'article_edit' article.pk %}" class="btn btn-dark btn-sm">Edit Article</a>

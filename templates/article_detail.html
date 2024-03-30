@@ -11,6 +11,8 @@
             </div>
             <div class="card-body">
                 <p>{{ object.body }}</p>
+                <a href="{% url 'article_delete' article.pk %}" class="btn btn-dark btn-sm">Delete Article</a>
+                <a href="{% url 'article_edit' article.pk %}" class="btn btn-dark btn-sm">Edit Article</a>
             </div>
         </div>
     </div>
@@ -27,7 +29,7 @@
 
     <div class="card-body">
         <div class="card" style="background-color: #f0f0f0; color: black; padding-top: 1rem; padding-bottom: 1rem; padding-left: 1.5rem; padding-right: 1.5rem;">
-            <h4 class="mb-3">Add a comment</h4>
+            <h4 class="mb-3">Add a Comment</h4>
             <form actions="" method="post" class="comment-form">{% csrf_token %}
                 {{ form|crispy }}
                 <button class="btn btn-dark btn-sm" type="submit">Post Comment</button>
