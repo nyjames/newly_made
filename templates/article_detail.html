@@ -11,8 +11,10 @@
             </div>
             <div class="card-body">
                 <p>{{ object.body }}</p>
-                <a href="{% url 'article_delete' article.pk %}" class="btn btn-dark btn-sm">Delete Article</a>
-                <a href="{% url 'article_edit' article.pk %}" class="btn btn-dark btn-sm">Edit Article</a>
+                {% if article.author == request.user %}
+                    <a href="{% url 'article_delete' article.pk %}" class="btn btn-dark btn-sm">Delete Article</a>
+                    <a href="{% url 'article_edit' article.pk %}" class="btn btn-dark btn-sm">Edit Article</a>
+                {% endif %}
             </div>
         </div>
     </div>
